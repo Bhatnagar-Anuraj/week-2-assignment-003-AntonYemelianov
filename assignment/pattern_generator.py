@@ -80,8 +80,29 @@ def generate_pattern():
     #           # TODO: Position the object using cmds.move().
     #
     #           # TODO: (Optional) Vary the scale using cmds.scale().
+rows = 5
+cols = 5
+spacing = 5
+cube_width =1
+cube_height = 3
+cube_depth = 1
+cylinder_radius = 1
+cylinder_hieght=3
+#First, I set all of the variables so that they can easily be changed throughout the code if changed here. 
 
-    pass  # Remove this line once you add your code.
+for row in range(rows):
+    for col in range(cols):#since this is a 2d grid, there needs to be two loops, for columns and rows, like in a table.
+        if (row*col) % 4 == 0:#I tested out different patterns, but I liked this one.
+            #it creates a box with an object in the middle.
+            #since there are 5 rows and 5 columns, and the first of each counts as 0, while the last counts as 4, all positions within them are divisible by 4
+            #which means they are completely filled with cylinders, creating a box+the one cylinder in the middle where the coords are (2,2), giving a product of 4
+            obj=cmds.polyCylinder(name="cylinder", radius=cylinder_radius, height=cylinder_hieght)[0]#places cylinders at the locations indicated by the if statement
+        else:
+            obj = cmds.polyCube(name="cube", width=cube_width, height=cube_height, depth=cube_depth)[0] #whenever a column is not created, I wanted it to be a cube instead.
+        x = col * spacing
+        z = row * spacing
+        cmds.move(x, 0, z, obj)
+        #this creates even spacing between all objects
 
 
 # ---------------------------------------------------------------------------
